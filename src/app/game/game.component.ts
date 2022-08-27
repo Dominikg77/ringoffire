@@ -24,7 +24,7 @@ currentCard: string = '';
 
 newGame(){
 this.game = new Game ();
-console.log(this.game);
+
 
 }
 
@@ -33,7 +33,8 @@ console.log(this.game);
 this.currentCard = this.game.stack.pop(); // greift auf das letzt element im array zu und entfert es dann anschliessend
     this.pickCardAnimation = true;
 
-
+this.game.currentPlayer++;
+this.game.currentPlayer = this.game.currentPlayer % this.game.players.length; // % modulu für die länge z.b. 0 1 2 / 0 1 2 ....
     setTimeout(() => {
       //erst nach einer sekunde die gespielten anzeigen
       this.game.playedCards.push(this.currentCard);
@@ -47,8 +48,10 @@ this.currentCard = this.game.stack.pop(); // greift auf das letzt element im arr
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
   
     dialogRef.afterClosed().subscribe((name: string) => {
+      if(name && length > 0){ // existiert der name zweiter step ist der name länger als eins
    this.game.players.push(name);
-    });
+  }
+});
   }
 }
 
