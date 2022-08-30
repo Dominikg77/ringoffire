@@ -24,8 +24,6 @@ currentCard: string = '';
 
 newGame(){
 this.game = new Game ();
-
-
 }
 
   takeCard(){
@@ -48,7 +46,7 @@ this.game.currentPlayer = this.game.currentPlayer % this.game.players.length; //
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
   
     dialogRef.afterClosed().subscribe((name: string) => {
-      if(name && length > 0){ // existiert der name zweiter step ist der name länger als eins
+      if(name){ // existiert der name zweiter step ist der name länger als eins
    this.game.players.push(name);
   }
 });

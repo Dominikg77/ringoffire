@@ -5,7 +5,7 @@ public playedCards: string[] = [];
 public currentPlayer: number = 0;
 
 constructor(){
-    //lädt alle 52 bilder
+    //lädt alle 52 (4 mal 13) bilder
     for(let i=1; i < 14; i++){
 this.stack.push(`spade_`+i);
 this.stack.push(`hearts_`+i);
