@@ -4,7 +4,8 @@ import {MatDialog} from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { collectionData, Firestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,7 @@ currentCard: string = '';
   game: Game
 
   games$: Observable<any>;
-  constructor(private firestore: Firestore, public dialog: MatDialog) { 
+  constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { 
     const coll= collection(firestore, 'games');
 this.games$ = collectionData(coll);
 
@@ -28,14 +29,18 @@ this.games$.subscribe((newgame)=>{
   }
 
   ngOnInit(): void {
-    this.newGame();
+   this.newGame();
+    this.route.params.subscribe((params)=>{
+console.log(params)
+    })
 };
 
 
 newGame(){
 this.game = new Game ();
-const coll = collection(this.firestore, 'games');
-setDoc(doc(coll), this.game.toJson());
+// const coll = collection(this.firestore, 'games');
+// let gameInfo =  addDoc(coll, this.game.toJson());
+// console.log('Das ist die Info',gameInfo)
 }
 
   takeCard(){

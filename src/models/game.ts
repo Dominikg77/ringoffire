@@ -14,7 +14,8 @@ this.stack.push(`diamonds_`+i);
     }
     shuffle(this.stack);
 }
-public toJson(){
+// Json Datei generieren 
+public toJson(){ 
 return{
   players: this.players,
   stack: this.stack,
