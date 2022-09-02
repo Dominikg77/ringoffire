@@ -14,6 +14,14 @@ this.stack.push(`diamonds_`+i);
     }
     shuffle(this.stack);
 }
+public toJson(){
+return{
+  players: this.players,
+  stack: this.stack,
+  playedCards: this.playedCards,
+  currentPlayer: this.currentPlayer
+};
+}
 }
 //function von stackoverflow zum array mischen
 function shuffle(array) {
