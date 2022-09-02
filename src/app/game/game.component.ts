@@ -35,7 +35,7 @@ this.games$.subscribe((newgame)=>{
 newGame(){
 this.game = new Game ();
 const coll = collection(this.firestore, 'games');
-setDoc(doc(coll), {this.game.toJson()});
+setDoc(doc(coll), this.game.toJson());
 }
 
   takeCard(){
