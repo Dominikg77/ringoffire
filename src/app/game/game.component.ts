@@ -17,10 +17,11 @@ export class GameComponent implements OnInit {
   pickCardAnimation = false;
 currentCard: string = '';
   game: Game;
-
   games$: Observable<any>;
-  constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { 
-    const coll= collection(firestore, 'games');
+
+constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { 
+   
+const coll= collection(firestore, 'games');
 this.games$ = collectionData(coll);
 
 this.games$.subscribe((newgame)=>{
@@ -28,19 +29,25 @@ this.games$.subscribe((newgame)=>{
 })
   }
 
+
   ngOnInit(): void {
-   this.newGame();
+  this.newGame();
    this.route.params.subscribe((params)=>{
-console.log(params)
+console.log(params.id);
+this.firestore.collection().doc().subscribe((game:any)=>{
+console.log('Game update',game);
+this.game.currentPlayer=game.currentPlayer;
+})
+
    })
 };
 
 
 async newGame(){
 this.game = new Game ();
- const coll = collection(this.firestore, 'games');
- let gameInfo = await  addDoc(coll, this.game.toJson());
- console.log('Das ist die Game ID',gameInfo)
+// const coll = collection(this.firestore, 'games');
+// let gameInfo = await  addDoc(coll, this.game.toJson());
+// console.log('Das ist die Game ID',gameInfo)
 }
 
   takeCard(){
