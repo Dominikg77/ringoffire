@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
 
 @Component({
@@ -34,6 +35,7 @@ constructor(private route: ActivatedRoute, private firestore: AngularFirestore,
           this.game.currentPlayer = game.currentPlayer;
           this.game.playedCards = game.playedCards;
           this.game.players = game.players;
+          this.game.player_images = game.player_images
           this.game.stack = game.stack;
           this.game.pickCardAnimation = game.pickCardAnimation;
           this.game.currentCard = game.currentCard;
@@ -63,6 +65,15 @@ setTimeout(() => {
   }
   }
 
+  editPlayer(playerId: number){
+    console.log('edit player',playerId);
+    const dialogRef = this.dialog.open(EditPlayerComponent);
+    dialogRef.afterClosed().subscribe((change: string) => {
+console.log('Recdevied change',change);
+this.game.player_images[playerId]=change;
+this.saveGame();
+});
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
@@ -70,6 +81,7 @@ setTimeout(() => {
     dialogRef.afterClosed().subscribe((name: string) => {
       if(name){ // existiert der name zweiter step ist der name länger als eins
    this.game.players.push(name);
+   this.game.player_images.push('1.webp');
    this.saveGame();
   }
 });
