@@ -30,9 +30,9 @@ this.games$.subscribe((newgame)=>{
 
   ngOnInit(): void {
    this.newGame();
-   // this.route.params.subscribe((params)=>{
-//console.log(params)
-  //  })
+   this.route.params.subscribe((params)=>{
+console.log(params)
+   })
 };
 
 
