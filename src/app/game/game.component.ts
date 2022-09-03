@@ -57,9 +57,8 @@ this.saveGame();
 setTimeout(() => {
       //erst nach einer sekunde die gespielten anzeigen
       this.game.playedCards.push(this.game.currentCard);
-
       this.game.pickCardAnimation = false;
-  
+      this.saveGame(); 
     }, 1000);
   }
   }
