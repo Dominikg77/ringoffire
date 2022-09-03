@@ -1,13 +1,4 @@
 {
-  "targets": {
-    "ring-of-fire-c06d5": {
-      "hosting": {
-        "ringoffire": [
-          "ring-of-fire-c06d5"
-        ]
-      }
-    }
-  },
   "projects": {
     "default": "ring-of-fire-c06d5"
   }

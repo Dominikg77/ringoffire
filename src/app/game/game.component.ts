@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Game } from 'src/models/game';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
-import { collectionData, Firestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { addDoc, doc, setDoc } from 'firebase/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 
 @Component({
@@ -14,13 +12,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  pickCardAnimation = false;
-currentCard: string = '';
-  game: Game;
+ game: Game;
   gameId: string;
 
 
-constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { 
+constructor(private route: ActivatedRoute, private firestore: AngularFirestore,
+  public dialog: MatDialog, ) { }
    
 
   ngOnInit(): void {
@@ -38,27 +35,31 @@ constructor(private route: ActivatedRoute, private firestore: Firestore, public 
           this.game.playedCards = game.playedCards;
           this.game.players = game.players;
           this.game.stack = game.stack;
-
+          this.game.pickCardAnimation = game.pickCardAnimation;
+          this.game.currentCard = game.currentCard;
         });
-    })
-  }
-}
+      })
+    }
+  
+
 
 newGame(){
 this.game = new Game ();
 }
 
   takeCard(){
-    if(!this.pickCardAnimation){
-this.currentCard = this.game.stack.pop(); // greift auf das letzt element im array zu und entfert es dann anschliessend
-    this.pickCardAnimation = true;
-
+    if(!this.game.pickCardAnimation){
+this.game.currentCard = this.game.stack.pop(); // greift auf das letzt element im array zu und entfert es dann anschliessend
+this.game.pickCardAnimation = true;
 this.game.currentPlayer++;
 this.game.currentPlayer = this.game.currentPlayer % this.game.players.length; // % modulu für die länge z.b. 0 1 2 / 0 1 2 ....
-    setTimeout(() => {
+this.saveGame();    
+setTimeout(() => {
       //erst nach einer sekunde die gespielten anzeigen
-      this.game.playedCards.push(this.currentCard);
-      this.pickCardAnimation = false;
+      this.game.playedCards.push(this.game.currentCard);
+
+      this.game.pickCardAnimation = false;
+  
     }, 1000);
   }
   }
@@ -70,9 +71,19 @@ this.game.currentPlayer = this.game.currentPlayer % this.game.players.length; //
     dialogRef.afterClosed().subscribe((name: string) => {
       if(name){ // existiert der name zweiter step ist der name länger als eins
    this.game.players.push(name);
+   this.saveGame();
   }
 });
   }
+
+saveGame(){
+  this
+        .firestore
+        .collection('games')
+        .doc(this.gameId)
+        .update(this.game.toJson());
+}
+
 }
 
 
