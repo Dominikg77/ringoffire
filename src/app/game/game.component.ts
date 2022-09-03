@@ -70,7 +70,7 @@ setTimeout(() => {
     const dialogRef = this.dialog.open(EditPlayerComponent);
     dialogRef.afterClosed().subscribe((change: string) => {
 console.log('Recdevied change',change);
-this.game.player_images[playerId]=change;
+//this.game.player_images[playerId]=change;
 this.saveGame();
 });
   }
