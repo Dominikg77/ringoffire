@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 export class GameComponent implements OnInit {
   pickCardAnimation = false;
 currentCard: string = '';
-  game: Game
+  game: Game;
 
   games$: Observable<any>;
   constructor(private route: ActivatedRoute, private firestore: Firestore, public dialog: MatDialog) { 
@@ -30,17 +30,17 @@ this.games$.subscribe((newgame)=>{
 
   ngOnInit(): void {
    this.newGame();
-    this.route.params.subscribe((params)=>{
-console.log(params)
-    })
+   // this.route.params.subscribe((params)=>{
+//console.log(params)
+  //  })
 };
 
 
-newGame(){
+async newGame(){
 this.game = new Game ();
-// const coll = collection(this.firestore, 'games');
-// let gameInfo =  addDoc(coll, this.game.toJson());
-// console.log('Das ist die Info',gameInfo)
+ const coll = collection(this.firestore, 'games');
+ let gameInfo = await  addDoc(coll, this.game.toJson());
+ console.log('Das ist die Game ID',gameInfo)
 }
 
   takeCard(){
