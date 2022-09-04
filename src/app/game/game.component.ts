@@ -35,7 +35,7 @@ constructor(private route: ActivatedRoute, private firestore: AngularFirestore,
           this.game.currentPlayer = game.currentPlayer;
           this.game.playedCards = game.playedCards;
           this.game.players = game.players;
-          this.game.player_images = game.player_images
+          this.game.player_images = game.player_images;
           this.game.stack = game.stack;
           this.game.pickCardAnimation = game.pickCardAnimation;
           this.game.currentCard = game.currentCard;
@@ -70,7 +70,7 @@ setTimeout(() => {
     const dialogRef = this.dialog.open(EditPlayerComponent);
     dialogRef.afterClosed().subscribe((change: string) => {
 console.log('Recdevied change',change);
-//this.game.player_images[playerId]=change;
+this.game.player_images[playerId]=change;
 this.saveGame();
 });
   }
@@ -81,7 +81,7 @@ this.saveGame();
     dialogRef.afterClosed().subscribe((name: string) => {
       if(name){ // existiert der name zweiter step ist der name länger als eins
    this.game.players.push(name);
-   this.game.player_images.push('1.webp');
+ this.game.player_images.push('1.webp');
    this.saveGame();
   }
 });
