@@ -15,6 +15,7 @@ import { EditPlayerComponent } from '../edit-player/edit-player.component';
 export class GameComponent implements OnInit {
  game: Game;
   gameId: string;
+  gameOver = false;
 
 
 constructor(private route: ActivatedRoute, private firestore: AngularFirestore,
@@ -31,7 +32,6 @@ constructor(private route: ActivatedRoute, private firestore: AngularFirestore,
         .doc(this.gameId)
         .valueChanges()
         .subscribe((game: any) => {
-              console.log('game update', game );
           this.game.currentPlayer = game.currentPlayer;
           this.game.playedCards = game.playedCards;
           this.game.players = game.players;
@@ -50,7 +50,9 @@ this.game = new Game ();
 }
 
   takeCard(){
-    if(!this.game.pickCardAnimation){
+    if(this.game.stack.length == 0){
+      this.gameOver= true;
+    } else if(!this.game.pickCardAnimation){
 this.game.currentCard = this.game.stack.pop(); // greift auf das letzt element im array zu und entfert es dann anschliessend
 this.game.pickCardAnimation = true;
 this.game.currentPlayer++;
@@ -66,12 +68,17 @@ setTimeout(() => {
   }
 
   editPlayer(playerId: number){
-    console.log('edit player',playerId);
     const dialogRef = this.dialog.open(EditPlayerComponent);
     dialogRef.afterClosed().subscribe((change: string) => {
-console.log('Recdevied change',change);
-this.game.player_images[playerId]=change;
-this.saveGame();
+      if(change){
+        if(change == 'DELETE'){
+          this.game.players.splice(playerId),1;
+          this.game.player_images.splice(playerId),1;
+        }else{
+          this.game.player_images[playerId]=change;
+      }
+      this.saveGame();
+    }
 });
   }
 

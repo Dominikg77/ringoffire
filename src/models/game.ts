@@ -8,7 +8,7 @@ public pickCardAnimation = false;
 public currentCard: string = '';
 
 constructor(){
-    //lädt alle 52 (4 mal 13) bilder
+    //lädt alle 52 (4 mal 13) bilder 14
     for(let i=1; i < 14; i++){
 this.stack.push(`spade_`+i);
 this.stack.push(`hearts_`+i);
