@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/models/game';
 import {MatDialog} from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -16,10 +17,11 @@ export class GameComponent implements OnInit {
  game: Game;
   gameId: string;
   gameOver = false;
+  value = window.location.href;
 
 
 constructor(private route: ActivatedRoute, private firestore: AngularFirestore,
-  public dialog: MatDialog, ) { }
+  public dialog: MatDialog,private _snackBar: MatSnackBar ) { }
    
 
   ngOnInit(): void {
@@ -102,6 +104,14 @@ saveGame(){
         .update(this.game.toJson());
 }
 
+openSnackBar(msg) {
+  this._snackBar.open(msg);
+
+  setTimeout(() => {
+  this._snackBar.dismiss();
+    
+  }, 3000);
+}
 }
 
 

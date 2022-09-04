@@ -58,15 +58,6 @@
     z-index: 1;
 }
 
-.btn-add {
-    position: absolute;
-    right: 32px;
-    bottom: 32px;
-    @media(max-width: 720px) {
-        bottom: 100px;
-    }
-}
-
 .pin-bottom {
     position: absolute;
     bottom: 32px;
@@ -114,4 +105,28 @@ app-player-mobile {
 .preloadImage {
     opacity: 0;
     z-index: -99;
+}
+
+.all-btn {
+    bottom: 32px;
+}
+
+.btn-add {
+    position: absolute;
+    right: 24px;
+    bottom: 32px;
+    @media(max-width: 720px) {
+        bottom: 100px;
+        right: 10px;
+    }
+}
+
+.invite-btn {
+    position: absolute;
+    right: 24px;
+    bottom: 100px;
+    @media(max-width: 720px) {
+        bottom: 160px;
+        right: 10px;
+    }
 }
