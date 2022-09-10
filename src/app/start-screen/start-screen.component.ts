@@ -1,9 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Router } from '@angular/router';
-import { Game } from 'src/models/game';
-
-
+import {Component, OnInit, Output} from '@angular/core';
+import {AngularFirestore} from '@angular/fire/compat/firestore';
+import {Router} from '@angular/router';
+import {Game} from 'src/models/game';
 
 
 @Component({
@@ -14,13 +12,13 @@ import { Game } from 'src/models/game';
 export class StartScreenComponent implements OnInit {
 
 
-
-  constructor( private router: Router, private firestore: AngularFirestore ) { }
+  constructor(private router: Router, private firestore: AngularFirestore) {
+  }
 
   ngOnInit(): void {
   }
 
-  newGame(){
+  newGame() {
     //start game
     let game = new Game();
     this.firestore
@@ -32,6 +30,6 @@ export class StartScreenComponent implements OnInit {
         this.router.navigateByUrl('/game/' + gameInfo['id']);
 
       })
-      ;
+    ;
   }
 }
