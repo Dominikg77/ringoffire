@@ -17,6 +17,7 @@ export class GameComponent implements OnInit {
   gameId: string;
   gameOver = false;
   value = window.location.href;
+  player: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -49,22 +50,35 @@ export class GameComponent implements OnInit {
     this.game = new Game();
   }
 
+  checkPlayer() {
+    if (this.game.players.length < 2) {
+      this.player = false;
+    } else {
+      this.player = true;
+    }
+  }
+
   takeCard() {
-    if (this.game.stack.length == 0) {
-      this.gameOver = true;
-    } else if (!this.game.pickCardAnimation) {
-      this.game.currentCard = this.game.stack.pop(); // greift auf das letzt element im array zu und entfert es dann anschliessend
-      this.game.pickCardAnimation = true;
-      this.game.currentPlayer++;
-      this.game.currentPlayer =
-        this.game.currentPlayer % this.game.players.length; // % modulu für die länge z.b. 0 1 2 / 0 1 2 ....
-      this.saveGame();
-      setTimeout(() => {
-        //erst nach einer sekunde die gespielten anzeigen
-        this.game.playedCards.push(this.game.currentCard);
-        this.game.pickCardAnimation = false;
+    this.checkPlayer();
+    if (this.player) {
+      if (this.game.stack.length == 0) {
+        this.gameOver = true;
+      } else if (!this.game.pickCardAnimation) {
+        this.game.currentCard = this.game.stack.pop(); // greift auf das letzt element im array zu und entfert es dann anschliessend
+        this.game.pickCardAnimation = true;
+        this.game.currentPlayer++;
+        this.game.currentPlayer =
+          this.game.currentPlayer % this.game.players.length; // % modulu für die länge z.b. 0 1 2 / 0 1 2 ....
         this.saveGame();
-      }, 1000);
+        setTimeout(() => {
+          //erst nach einer sekunde die gespielten anzeigen
+          this.game.playedCards.push(this.game.currentCard);
+          this.game.pickCardAnimation = false;
+          this.saveGame();
+        }, 1000);
+      }
+    } else {
+      alert('Please add Player');
     }
   }
 

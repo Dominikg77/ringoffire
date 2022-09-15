@@ -3,7 +3,6 @@ import {AngularFirestore} from '@angular/fire/compat/firestore';
 import {Router} from '@angular/router';
 import {Game} from 'src/models/game';
 
-
 @Component({
   selector: 'app-start-screen',
   templateUrl: './start-screen.component.html',
