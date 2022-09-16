@@ -105,12 +105,13 @@ export class GameComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
-    dialogRef.afterClosed().subscribe((name: string) => {
-      if (name) {
+    dialogRef.afterClosed().subscribe((choice: any) => {
+      if (choice.name && choice.pictureSrc) {
         // existiert der name zweiter step ist der name länger als eins
-        this.game.players.push(name);
-        this.game.player_images.push(picture);
+        this.game.players.push(choice.name);
+        this.game.player_images.push(choice.pictureSrc);
         this.saveGame();
+        console.log(choice.name, choice.pictureSrc);
       }
     });
   }
