@@ -7,11 +7,11 @@
         <mat-label>Name</mat-label>
         <input matInput [(ngModel)]="name"> </mat-form-field>
     <div class="img">
-        <img (click)="selectAvatar(pictureSrc)" class="profil-picture" [mat-dialog-close]="picture" *ngFor="let picture of allProfilePictures" src="assets/img/profile/{{ picture }} ">
+        <img (click)="selectAvatar(picture)" class="profil-picture" *ngFor="let picture of allProfilePictures" src="assets/img/profile/{{ picture }} ">
     </div>
 </div>
 
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button [disabled]="name.length == 0" [mat-dialog-close]="[name,pictureSrc]" cdkFocusInitial>Ok</button>
+    <button class="add" mat-button [disabled]="name.length && pictureSrc.length == 0" [mat-dialog-close]="{name,pictureSrc}" cdkFocusInitial>Add Player</button>
 </div>

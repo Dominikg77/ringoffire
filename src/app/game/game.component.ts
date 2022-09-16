@@ -107,11 +107,9 @@ export class GameComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((choice: any) => {
       if (choice.name && choice.pictureSrc) {
-        // existiert der name zweiter step ist der name länger als eins
         this.game.players.push(choice.name);
         this.game.player_images.push(choice.pictureSrc);
         this.saveGame();
-        console.log(choice.name, choice.pictureSrc);
       }
     });
   }
