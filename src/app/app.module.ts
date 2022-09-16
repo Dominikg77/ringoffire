@@ -22,6 +22,8 @@ import { PlayerMobileComponent } from './player-mobile/player-mobile.component';
 import { EditPlayerComponent } from './edit-player/edit-player.component';
 import {  MatSnackBarModule } from '@angular/material/snack-bar';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { InfoDialogComponent } from './info-dialog/info-dialog.component';
+import { AlertNumberPlayerComponent } from './alert-number-player/alert-number-player.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
     DialogAddPlayerComponent,
     GameInfoComponent,
     PlayerMobileComponent,
-    EditPlayerComponent
+    EditPlayerComponent,
+    InfoDialogComponent,
+    AlertNumberPlayerComponent
   ],
   imports: [
     BrowserModule,

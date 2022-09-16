@@ -8,8 +8,10 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class DialogAddPlayerComponent implements OnInit {
   name: string = '';
+  picture: string = '';
 
   constructor(private dialogRef: MatDialogRef<DialogAddPlayerComponent>) {}
+  allProfilePictures = ['winkboy.svg', 'pinguin.svg', 'serious-woman.svg'];
 
   ngOnInit(): void {}
   onNoClick() {

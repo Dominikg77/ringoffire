@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertNumberPlayerComponent } from '../alert-number-player/alert-number-player.component';
 
 @Component({
   selector: 'app-game',
@@ -18,6 +19,7 @@ export class GameComponent implements OnInit {
   gameOver = false;
   value = window.location.href;
   player: boolean = false;
+  newImage: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -78,8 +80,11 @@ export class GameComponent implements OnInit {
         }, 1000);
       }
     } else {
-      alert('Please add Player');
+      this.openAlter();
     }
+  }
+  openAlter() {
+    const dialogRef = this.dialog.open(AlertNumberPlayerComponent);
   }
 
   editPlayer(playerId: number) {
@@ -104,7 +109,7 @@ export class GameComponent implements OnInit {
       if (name) {
         // existiert der name zweiter step ist der name länger als eins
         this.game.players.push(name);
-        this.game.player_images.push('1.webp');
+        this.game.player_images.push(picture);
         this.saveGame();
       }
     });
